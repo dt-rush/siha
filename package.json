@@ -1,11 +1,11 @@
 {
   "name": "siha",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "a simple habit-tracker exposing an API",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./tests",
-    "siha": "node cli.js",
+    "test": "gulp test",
+    "cli": "node cli.js",
     "server": "node server.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "gulp-live-server": "0.0.31",
     "morgan": "^1.9.0",
     "sequelize": "^4.38.0",
     "sqlite3": "^4.0.2"
@@ -32,6 +33,9 @@
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "dotenv": "^6.0.0",
+    "gulp": "^3.9.1",
+    "gulp-spawn-mocha": "^5.0.1",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "versionist": "^2.14.0"
   }

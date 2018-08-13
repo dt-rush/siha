@@ -28,12 +28,25 @@ const Task = sequelize.define('task', {
   type: Sequelize.STRING
 });
 
+const models = [Task];
+
 const withDB = (func) => {
   sequelize.sync().then(func);
 }
 
+const clearDB = () => {
+  for (var model of models) {
+    model.destroy({
+      where: {},
+      truncate: true
+    });
+  }
+};
+
 module.exports = {
   sequelize,
   withDB,
+  clearDB,
+  models,
   Task,
 };
