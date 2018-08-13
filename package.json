@@ -1,0 +1,31 @@
+{
+  "name": "siha",
+  "version": "0.0.0",
+  "description": "a simple habit-tracker exposing an API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "siha": "node cli.js",
+    "server": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dt-rush/simple-habit.git"
+  },
+  "keywords": [
+    "habit"
+  ],
+  "author": "dt-rush",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dt-rush/simple-habit/issues"
+  },
+  "homepage": "https://github.com/dt-rush/simple-habit#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "dotenv": "^6.0.0",
+    "mocha": "^5.2.0"
+  }
+}
