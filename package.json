@@ -1,10 +1,10 @@
 {
   "name": "siha",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "a simple habit-tracker exposing an API",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha ./tests",
     "siha": "node cli.js",
     "server": "node server.js"
   },
@@ -22,9 +22,15 @@
   },
   "homepage": "https://github.com/dt-rush/simple-habit#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "sequelize": "^4.38.0",
+    "sqlite3": "^4.0.2"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "dotenv": "^6.0.0",
     "mocha": "^5.2.0",
     "versionist": "^2.14.0"
