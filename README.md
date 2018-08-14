@@ -3,7 +3,7 @@ siha
 
 ( **si**mple **ha**bit )
 
-![cyclic time icon](images/update.svg | width=128)\*
+<img src="https://cdn.rawgit.com/dt-rush/siha/master/images/update.svg" with="100%" height="200"> \*
 
 There are several habit tracker / productivity apps out there which do each a
 subset of what I'd like. So I'll just write my own.
