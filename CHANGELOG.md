@@ -1,9 +1,3 @@
-## v1.0.0 - 2018-08-12
-
-* Added versionist to dependencies [dt-rush]
-* Added README [dt-rush]
-* Initial commit [dt-rush]
-
 ## v1.4.0 - 2018-08-14
 
 * Refactored and generalized rest API creation, defined more models, and model relationships [dt-rush]
@@ -22,3 +16,11 @@
 ## v1.1.0 - 2018-08-12
 
 * Generated CHANGELOG.md with versionist [dt-rush]
+
+## v1.0.0 - 2018-08-12
+
+* Added versionist to dependencies [dt-rush]
+* Added README [dt-rush]
+* Initial commit [dt-rush]
+
+
