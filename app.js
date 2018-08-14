@@ -12,7 +12,11 @@ app.use(morgan('combined', {immediate: true}));
 app.use('/api', api.router);
 app.use(internalErrorHandler);
 app.listen(config.port, () => {
-  console.log(require('./jgs-flower-banner'));
-  console.log();
-  console.log(`siha listening on port ${config.port}!`)
+  if (process.env.NODE_ENV !== 'test') { 
+    console.log(require('./jgs-flower-banner'));
+    console.log();
+    console.log(`siha listening on port ${config.port}!`)
+  }
 });
+
+module.exports = app;

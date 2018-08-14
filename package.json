@@ -1,12 +1,12 @@
 {
   "name": "siha",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "a simple habit-tracker exposing an API",
   "main": "index.js",
   "scripts": {
     "test": "gulp test",
-    "cli": "node cli.js",
-    "server": "node server.js"
+    "dev-serve": "gulp dev-serve",
+    "cli": "gulp cli"
   },
   "repository": {
     "type": "git",

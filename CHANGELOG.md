@@ -4,6 +4,12 @@
 * Added README [dt-rush]
 * Initial commit [dt-rush]
 
+## v1.4.0 - 2018-08-14
+
+* Refactored and generalized rest API creation, defined more models, and model relationships [dt-rush]
+* Patched README svg logo image size [dt-rush]
+* Improved README, set up testing, set up gulp [dt-rush]
+
 ## v1.3.0 - 2018-08-13
 
 * Improved README, set up testing, set up gulp [dt-rush]

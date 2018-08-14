@@ -32,7 +32,7 @@ gulp.task('dev-serve', () => {
     if (server) {
       await server.stop();
     }
-    server = gls('server.js', {env: process.env});
+    server = gls('app.js', {env: process.env});
     server.start();
   };
 

@@ -7,6 +7,7 @@ const config = require('./config');
 const sequelize = new Sequelize('siha', config.username, 'password', {
   host: 'localhost',
   dialect: 'sqlite',
+  logging: false,
   pool: {
     max: 5,
     min: 0,
@@ -17,28 +18,24 @@ const sequelize = new Sequelize('siha', config.username, 'password', {
   operatorsAliases: false,
 });
 
-const Task = sequelize.define('task', {
-  id: { 
-    type: Sequelize.INTEGER, 
-    primaryKey: true,
-    autoIncrement: true
-  },
-  name: Sequelize.STRING,
-  description: Sequelize.STRING,
-  type: Sequelize.STRING
-});
-
-const models = [Task];
-
 const withDB = (func) => {
   sequelize.sync().then(func);
 }
 
 const clearDB = () => {
-  for (var model of models) {
+  for (var model of Object.values(sequelize.models)) {
     model.destroy({
       where: {},
       truncate: true
+    }).catch((err) => {
+      if (/.*no such table.*/.test(err.message)) {
+        // ignore no such table
+        return; 
+      }
+      console.error(`error in db.js: clearDB(): ${err.message}`);
+      if (config.debug) {
+        console.error(err);
+      }
     });
   }
 };
@@ -47,6 +44,4 @@ module.exports = {
   sequelize,
   withDB,
   clearDB,
-  models,
-  Task,
 };
