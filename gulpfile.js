@@ -67,7 +67,7 @@ gulp.task('test', () => {
   dotenv.config({
     path: './test.env'
   });
-  gulp.src('./tests/*.spec.js', {read: false})
+  return gulp.src('./tests/*.spec.js', {read: false})
     .pipe(mocha({
       env: process.env,
       debugBrk: DEBUG,
