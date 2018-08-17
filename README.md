@@ -11,17 +11,21 @@ siha
 There are several habit tracker / productivity apps out there which do each a
 subset of what I'd like. So I'll just write my own.
 
+## Development
+
+1. Make changes
+2. Before commit, ensure `gulp test` passes.
+3. Commit changes, with `Change-Type: (major|minor|patch)` in the commit footer.
+4. Run `gulp pre-push` (generates jsdoc and updates changelog, version, tags)
+5. Push
+
 ## TODO:
 
-1. document build instructions
-2. make Dockerfile
-3. figure out how to use versionist automatically on commit
-4. set up basic badges (codecov, travis build)
-5. determine what types of tasks / projects / habits to represent, and how
-6. determine statistics that the user would find useful
-7. implement tasks / projects / habits model
-8. implement statistics
-9. build a front-end in a web-app (separate repo)
+1. make Dockerfile
+2. finish restify implementation for methods (get query langauge?)
+3. determine statistics that the user would find useful
+4. implement statistics
+5. build a front-end in a web-app (separate repo)
 
 ## Future directions
 
