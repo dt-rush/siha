@@ -1,5 +1,7 @@
 'use strict';
 
+/** @module tests/restify-test-utils */
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { app, server } = require('../lib/app');
@@ -12,9 +14,14 @@ const { clearDB } = require('../lib/db');
 const { assertRetrievedIsObj } = require('./utils');
 const testdata = require('./testdata');
 
+/** @constant
+ * @type {Object}
+ * @description keys are request methods like 'post', 'get', values are
+ *  functions of type (model) => (requester, testdata) => async ()
+ */
 const requestTests = {
 
-  post: (model) => (requester, simple, ___) => async () => {
+  post: (model) => (requester, { simple }) => async () => {
 
     const res = await requester.post(model.restify().paths.post()).send(simple);
     res.should.have.status(200);
@@ -24,7 +31,7 @@ const requestTests = {
 
   },
 
-  get: (model) => (requester, simple, __) => async () => {
+  get: (model) => (requester, { simple }) => async () => {
 
     await model.restify().post(simple);
     const res = await requester.get(model.restify().paths.get())
@@ -34,7 +41,7 @@ const requestTests = {
 
   },
 
-  patch: (model) => (requester, simple, patch) => async () => {
+  patch: (model) => (requester, { simple, patch }) => async () => {
 
     const savedInstance = await model.restify().post(simple);
     const patchRes = await requester.patch(savedInstance.restify().paths.patch()).send(patch);
@@ -46,7 +53,7 @@ const requestTests = {
 
   },
 
-  delete: (model) => (requester, simple, __) => async () => {
+  delete: (model) => (requester, { simple }) => async () => {
 
     const savedInstance = await model.restify().post(simple)
     const deleteRes = await requester.delete(savedInstance.restify().paths.delete());
@@ -63,8 +70,7 @@ const requestTests = {
 exports.restifyRequestTest = (model) => {
 
   const modelName = model.name.replace(/\b\w/g, l => l.toUpperCase());
-  const simple = testdata.simple[modelName].simple;
-  const patch = testdata.simple[modelName].patch;
+  const simpleTestData= testdata.simple[modelName];
   const requester = chai.request(app).keepOpen();
    
   const testsToRun = {};
@@ -93,7 +99,7 @@ exports.restifyRequestTest = (model) => {
     for (var method of Object.keys(testsToRun)) {
       for (var test of testsToRun[method]) {
         const descriptor = `${method.toUpperCase()} ${model.restify().paths[method]()}`;
-        it(descriptor, test(model)(requester, simple, patch));
+        it(descriptor, test(model)(requester, simpleTestData));
       }
     }
 
@@ -104,7 +110,7 @@ exports.restifyRequestTest = (model) => {
 
 const methodTests = {
 
-  post: (model) => (simple, __) => async () => {
+  post: (model) => ({ simple }) => async () => {
 
     const created = await model.restify().post(simple);
     created.should.have.property('id');
@@ -117,7 +123,7 @@ const methodTests = {
 
   get: [
   
-    (model) => (simple, __) => async() => {
+    (model) => ({ simple }) => async() => {
   
       await model.restify().post(simple);
       let fromDB = await model.restify().get();
@@ -127,7 +133,7 @@ const methodTests = {
 
     },
 
-    (model) => (simple, __) => async() => {
+    (model) => ({ simple }) => async() => {
       
       const n = 8;
       for (let i = 0; i < n; i++) {
@@ -144,7 +150,7 @@ const methodTests = {
 
   ],
 
-  patch: (model) => (simple, patch) => async() => {
+  patch: (model) => ({ simple, patch }) => async() => {
 
     const created = await model.restify().post(simple);
     let fromDB = await model.findById(created.id);
@@ -157,7 +163,7 @@ const methodTests = {
 
   delete: [
 
-    (model) => (simple, __) => async() => {
+    (model) => ({ simple }) => async() => {
 
       const a = await model.restify().post(simple);
       const b = await model.restify().post(simple);
@@ -169,7 +175,7 @@ const methodTests = {
 
     },
 
-    (model) => (simple, __) => async() => {
+    (model) => ({ simple }) => async() => {
   
       const n = 16;
       const promises = [];
@@ -192,8 +198,7 @@ const methodTests = {
 exports.restifyMethodTest = (model) => {
 
   const modelName = model.name.replace(/\b\w/g, l => l.toUpperCase());
-  const simple = testdata.simple[modelName].simple;
-  const patch = testdata.simple[modelName].patch;
+  const simpleTestData = testdata.simple[modelName];
 
   const testsToRun = {};
 
@@ -215,7 +220,7 @@ exports.restifyMethodTest = (model) => {
     for (var method of Object.keys(testsToRun)) {
       for (var test of testsToRun[method]) {
         const descriptor = `${model.name}.${method}()`;
-        it(descriptor, test(model)(simple, patch));
+        it(descriptor, test(model)(simpleTestData));
       }
     }
 
