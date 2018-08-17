@@ -1,6 +1,7 @@
 language:
   node_js
 install:
+  - npm i -D
   - npm install -g codecov gulp
 script:
   - gulp test
