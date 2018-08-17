@@ -50,12 +50,8 @@ gulp.task('versionist', (done) => {
 gulp.task('push', function (done) {
   const headRef = execSync('git rev-parse --short HEAD').toString().trim();
   console.log(`pushing origin master in gulp with HEAD: ${headRef}`);
-  git.push('origin', 'master', (err) => {
-    if (err) {
-      throw err
-    } else {
-      done();
-    }
+  exec('git push origin master', function (err, stdout, stderr) {
+    done(err);
   });
 });
 
