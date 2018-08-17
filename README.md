@@ -1,6 +1,9 @@
 siha
 ===
 
+[![Build Status](https://travis-ci.com/dt-rush/siha.svg?branch=master)](https://travis-ci.com/dt-rush/siha) 
+[![codecov](https://codecov.io/gh/dt-rush/siha/branch/master/graph/badge.svg)](https://codecov.io/gh/dt-rush/siha)
+
 ( **si**mple **ha**bit )
 
 <img src="https://cdn.rawgit.com/dt-rush/siha/master/images/update.svg" with="100%" height="200"> \*
