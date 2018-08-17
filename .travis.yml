@@ -1,5 +1,10 @@
 language:
   node_js
+node_js:
+  - "7"
+  - "8"
+  - "9"
+  - "10"
 install:
   - npm i -D
   - npm install -g codecov gulp
