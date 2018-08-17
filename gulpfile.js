@@ -15,8 +15,15 @@ gulp.task('test', () => {
       env: process.env,
       debugBrk: DEBUG,
       R: CI ? 'spec' : 'nyan',
-      istanbul: !DEBUG
-    }));
+      istanbul: !CI,
+      exit: true
+    }))
+    .once('error', () => {
+      process.exit(1);
+    })
+    .once('end', () => {
+      process.exit(0);
+    });
 });
 
 gulp.task('dev-serve', () => {
@@ -32,7 +39,7 @@ gulp.task('dev-serve', () => {
     if (server) {
       await server.stop();
     }
-    server = gls('app.js', {env: process.env});
+    server = gls('./lib/app.js', {env: process.env});
     server.start();
   };
 
@@ -40,7 +47,7 @@ gulp.task('dev-serve', () => {
   restartServer();
 
   // set up watchers
-  gulp.watch(['*.js', 'dev.env'], () => {
+  gulp.watch(['./lib/**/*.js', './dev.env'], () => {
     restartServer();
   });
 
