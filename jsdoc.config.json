@@ -1,0 +1,22 @@
+{
+    "plugins": ["plugins/markdown"],
+    "recurseDepth": 2,
+    "source": {
+        "include": ["./lib", "./tests"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "^.*node_modules.*$"
+    },
+    "sourceType": "module",
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc","closure"]
+    },
+    "opts": {
+        "template": "node_modules/loke-jsdoc-theme",
+        "destination": "docs"
+    },
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": true 
+    }
+}

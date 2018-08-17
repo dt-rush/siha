@@ -33,9 +33,13 @@
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "dotenv": "^6.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
+    "gulp-git": "^2.8.0",
+    "gulp-jsdoc3": "^2.0.0",
     "gulp-spawn-mocha": "^5.0.1",
     "istanbul": "^0.4.5",
+    "jsdoc": "^3.5.5",
+    "loke-jsdoc-theme": "^2.1.0",
     "mocha": "^5.2.0",
     "versionist": "^2.14.0"
   }

@@ -1,5 +1,9 @@
 'use strict';
 
+/** @module tests/tesdata */
+
+/** @constant 
+ * @description simple objects used in testing the model types */
 exports.simple = {
   'Todo': {
     simple: {
