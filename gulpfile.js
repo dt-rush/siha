@@ -15,7 +15,7 @@ gulp.task('test', () => {
       env: process.env,
       debugBrk: DEBUG,
       R: CI ? 'spec' : 'nyan',
-      istanbul: !CI,
+      istanbul: true,
       exit: true
     }))
     .once('error', () => {
