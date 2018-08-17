@@ -47,6 +47,10 @@ gulp.task('versionist', (done) => {
   });
 });
 
+gulp.task('wait-one-second', (done) => {
+  setTimeout(done, 1000);
+});
+
 gulp.task('push', function (done) {
   const headRef = execSync('git rev-parse --short HEAD').toString().trim();
   console.log(`pushing origin master in gulp with HEAD: ${headRef}`);
@@ -56,7 +60,7 @@ gulp.task('push', function (done) {
 });
 
 const releaseTasks = [
-  'versionist', 'jsdoc', 'git-add-all', 'commit-version', 'push'
+  'versionist', 'jsdoc', 'git-add-all', 'commit-version', 'wait-one-second', 'push'
 ];
 
 gulp.task('release', gulp.series(...releaseTasks));
