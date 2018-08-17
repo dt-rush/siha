@@ -58,7 +58,7 @@ gulp.task('push', function (done) {
 });
 
 const releaseTasks = [
-  'versionist', 'jsdoc', 'git-add-all', 'commit-version'
+  'versionist', 'jsdoc', 'git-add-all', 'commit-version', 'push'
 ];
 
 gulp.task('release', gulp.series(...releaseTasks));
