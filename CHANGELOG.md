@@ -1,3 +1,7 @@
+## v1.6.0 - 2018-08-17
+
+* Added Travis and Codecov badges / integration [dt-rush]
+
 ## v1.5.0 - 2018-08-17
 
 * Fleshed-out the models, created restify.js to restify sequelize models and generate API handlers, generalized testing to cover all models and all restified API paths [dt-rush]
