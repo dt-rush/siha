@@ -16,8 +16,7 @@ subset of what I'd like. So I'll just write my own.
 1. Make changes
 2. Before commit, ensure `gulp test` passes.
 3. Commit changes, with `Change-Type: (major|minor|patch)` in the commit footer.
-4. Run `gulp pre-push` (generates jsdoc and updates changelog, version, tags)
-5. Push
+4. Run `gulp release` (generates jsdoc and updates changelog, version, tags, pushes)
 
 ## TODO:
 
