@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>restify.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav class="nav">
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-express-utils.html">express-utils</a><ul class='methods'><li data-type='method'><a href="module-express-utils.html#.internalErrorHandler">internalErrorHandler</a></li><li data-type='method'><a href="module-express-utils.html#.respond">respond</a></li><li data-type='method'><a href="module-express-utils.html#.respondError">respondError</a></li></ul></li><li><a href="module-restify.html">restify</a></li></ul><h3>Classes</h3><ul><li><a href="module-restify-Restifier.html">Restifier</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">restify.js</h1>
+    
+
+    <!--container.tmpl-->
+
+
+
+
+    <!--source.tmpl-->
+
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+/** @module restify */
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+const sqs = require('sequelize-querystring')
+
+const { withDB } = require('./db');
+const { respond, respondError } = require('./express-utils');
+
+const methodFuncs = {
+
+  post: (model) => (instance) => {
+    return new Promise((resolve, reject) => {
+      withDB(() => {
+        model.create(instance)
+          .then(resolve)
+          .catch(reject);
+      });
+    });     
+  },
+
+  get: (model) => (query={}) => {
+    const qObj = {
+      offset: query.offset || 0,
+      limit: query.limit || 10,
+      where: query.filter ? sqs.find(query.filter) : {},
+      order: query.sort ? sqs.sort(query.sort) : []
+    };
+    return model.findAndCountAll(qObj);
+  },
+
+  patch: (model) => (id, patchObj) => {
+    return new Promise((resolve, reject) => {
+      model.findById(id).then((instance) => {
+        instance.update(patchObj)
+          .then(resolve)
+          .catch(reject);
+      });
+    });
+  },
+
+  delete: (model) => (ids) => {
+    let query;
+    if (ids === undefined) {
+      // destroy(undefined) destroys all
+      query = { truncate: true }; 
+    } else {
+      // build a query object the likes of which sequelize expects
+      query = {
+        where: {
+          [Op.or]: ids.map((id) => ({"id": id}))
+        }
+      };
+    }
+    return new Promise((resolve, reject) => {
+      model.destroy(query)
+        .then((deleted) => {
+          // TODO: check for foreign keys which might reference this and annull them
+          // TODO: how does this work with the sequelize relations?
+          resolve({deleted});
+        })
+        .catch(reject);
+    });
+  }
+
+};
+
+const modelRestPath = (prefix, model, suffix) => () => (
+  `${prefix}/${model.name}s` + (suffix ? `${suffix}` : '')
+);
+
+const resourceFuncs = {
+
+  post: {
+    instance: modelRestPath,
+    model: modelRestPath
+  },
+
+  get: {
+    instance: modelRestPath,
+    model: modelRestPath
+  },
+
+  patch: {
+    instance: (prefix, model) => function () { 
+      return modelRestPath(prefix, model, `/${this.id}`)();
+    },
+    model: (prefix, model) => modelRestPath(prefix, model, '/:id')
+  },
+
+  delete: {
+    instance: (prefix, model) => function () { 
+      return modelRestPath(prefix, model, `?ids=${this.id}`)();
+    },
+    model: modelRestPath
+  }
+}
+
+const routerFuncs = {
+
+  post: (model) => (req, res, next) => {
+    respond(req, res, next, model.restify().post(req.body));
+  },
+
+  get: (model) => (req, res, next) => {
+    respond(req, res, next, model.restify().get(req.query));
+  },
+
+  patch: (model) => (req, res, next) => {
+    respond(req, res, next, model.restify().patch(req.params.id, req.body));
+  },
+
+  delete: (model) => (req, res, next) => {
+    if (Object.keys(req.query).length === 0) {
+      respond(req, res, next, model.restify().delete()); 
+    } else {
+      // attempt to parse the query as a comma-separated list of ID's
+      if (/^[0-9]+(,[0-9]+)*$/.test(req.query.ids)) {
+        const ids = req.query.ids.split(',');
+        respond(req, res, next, model.restify().delete(ids));
+      } else {
+        respondError(req, res, new Error(`query "${req.query.ids}" did not match /^[0-9]+(,[0-9]+)*$/`));
+      }
+    }
+  },
+
+};
+
+/** @class Restifier
+ * @description Used to "restify" a sequelize model. Adds methods like `get()` 
+ *  and `post()` to the model, along with `restify()`, which returns an object
+ *  with various properties (most important is `.paths`, a dictionary of
+ *  functions keyed by http method (eg. `.get()`) returning descriptions express 
+ *  can consume for each http method key (eg. `"${prefix}/todo/:id"`).
+ *
+ *  Instances of the model also get a `.restify()` method with `paths` which,
+ *  for the instance, return the specific path the instance resides at (eg. 
+ *  `"${prefix}/todo/1"`).
+ */
+class Restifier {
+
+  constructor (prefix) {
+    this.prefix = prefix;
+  }
+
+  // modify the model so that it has rest method funcs
+  restify (methods, model) {
+
+    const restifyObj = {
+      supportedMethods: [],
+      expressRoutes: {},
+      paths: {}
+    };
+
+    const instanceMethods = {
+      paths: {}
+    };
+
+    // add restify() to model
+    for (var method of methods) {
+      if (!(method in methodFuncs)) {
+        throw new Error(`methodFunc ${method} is not implemented in restify`);
+      }
+      restifyObj[method] = methodFuncs[method](model);
+      restifyObj.supportedMethods.push(method);
+      restifyObj.paths[method] = resourceFuncs[method].model(this.prefix, model);
+      // collect instance methods to attach to the instances in the constructor
+      instanceMethods.paths[method] = resourceFuncs[method].instance(this.prefix, model);
+    }
+    model.restify = () => restifyObj;
+
+    // add restify() to instances
+    model.prototype.restify = function () {
+      const restifyObj = {
+        paths: {}
+      };
+      for (var method of Object.keys(instanceMethods.paths)) {
+        const pathMethod = instanceMethods.paths[method];
+        restifyObj.paths[method] = pathMethod.bind(this);
+      }
+      return restifyObj;
+    }
+
+    return model;
+
+  }
+
+  createAPIRouter (models) {
+    const router = express.Router();
+    router.use(bodyParser.json());
+    for (var model of models) {
+      for (var method of model.restify().supportedMethods) {
+        if (!(method in routerFuncs)) {
+          throw new Error(`routerFunc ${method.ToUpperCase()} is not implemented in restify`);
+        }
+        const path = model.restify().paths[method]();
+        const handler = routerFuncs[method](model);
+        router[method](path, handler);
+      }
+    }
+    return router;
+  }
+  
+}
+
+module.exports = {
+  // enables the pattern: restify = require('restify').prefix('/api')
+  prefix: (prefix) => new Restifier(prefix)
+};
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Aug 18 2018 07:22:15 GMT-0400 (EDT) using the LOKE theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

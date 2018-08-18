@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>express-utils - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav class="nav">
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-express-utils.html">express-utils</a><ul class='methods'><li data-type='method'><a href="module-express-utils.html#.internalErrorHandler">internalErrorHandler</a></li><li data-type='method'><a href="module-express-utils.html#.respond">respond</a></li><li data-type='method'><a href="module-express-utils.html#.respondError">respondError</a></li></ul></li><li><a href="module-restify.html">restify</a></li></ul><h3>Classes</h3><ul><li><a href="module-restify-Restifier.html">Restifier</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">express-utils</h1>
+    
+
+    <!--container.tmpl-->
+
+
+
+
+
+<section>
+
+
+
+<header data-tmpl="container.tmpl">
+    
+      <h2>Module: express-utils</h2>
+        
+    
+
+    
+      <div class="bs-callout bs-callout-default">
+        <h5>Members</h5>
+        <br />
+        <dl class="dl-horizontal methods-members">
+        <dt>Methods</dt><dd><ul>
+            <li><a href="#internalErrorHandler">internalErrorHandler</a></li>
+            
+            <li><a href="#respond">respond</a></li>
+            
+            <li><a href="#respondError">respondError</a></li>
+            </ul></dd></dl></div>
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="express-utils.js.html">express-utils.js</a>:<a href="express-utils.js.html#line15">15</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id=".internalErrorHandler">
+      <a href="#params-internalErrorHandler"><span class="type-signature">(static) </span>internalErrorHandler</a><span class="signature">(err, req, res, next)</span><span class="type-signature"></span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>helper function to handle internal errors</p>
+</div>
+
+
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-internalErrorHandler">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-internalErrorHandler" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>err</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the error which was caught</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">express.Request</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the request</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">express.Response</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the response</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the express middleware next() callback</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/** @function\n * @description helper function to handle internal errors\n * @param err {Error} - the error which was caught\n * @param req {express.Request} - the request\n * @param res {express.Response} - the response\n * @param next {Function} - the express middleware next() callback\n */","meta":{"range":[423,792],"filename":"express-utils.js","lineno":15,"columnno":0,"path":"/home/nickpayne/workspace/personal/siha/lib","code":{"id":"astnode100000384","name":"exports.internalErrorHandler","type":"ArrowFunctionExpression","paramnames":["err","req","res","next"]},"shortpath":"express-utils.js"},"kind":"function","description":"<p>helper function to handle internal errors</p>","params":[{"type":{"names":["Error"]},"description":"<p>the error which was caught</p>","name":"err"},{"type":{"names":["express.Request"]},"description":"<p>the request</p>","name":"req"},{"type":{"names":["express.Response"]},"description":"<p>the response</p>","name":"res"},{"type":{"names":["function"]},"description":"<p>the express middleware next() callback</p>","name":"next"}],"name":"internalErrorHandler","longname":"module:express-utils.internalErrorHandler","memberof":"module:express-utils","scope":"static","___id":"T000002R000050","___s":true,"attribs":"<span class=\"type-signature\">(static) </span>","id":".internalErrorHandler","signature":"<span class=\"signature\">(err, req, res, next)</span><span class=\"type-signature\"></span>","ancestors":["<a href=\"module-express-utils.html\">express-utils</a>."]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="express-utils.js.html">express-utils.js</a>:<a href="express-utils.js.html#line52">52</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id=".respond">
+      <a href="#params-respond"><span class="type-signature">(static) </span>respond</a><span class="signature">(req, res, next, promise)</span><span class="type-signature"></span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>helper function to respond to requests with a promise</p>
+</div>
+
+
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-respond">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-respond" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">express.Request</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the request</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">express.Response</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the response</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the express middleware next() callback</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>promise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Promise</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the promise whose resolved value will be sent</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/** @function\n * @description helper function to respond to requests with a promise\n * @param req {express.Request} - the request\n * @param res {express.Response} - the response\n * @param next {Function} - the express middleware next() callback\n * @param promise {Promise} - the promise whose resolved value will be sent\n */","meta":{"range":[1606,1739],"filename":"express-utils.js","lineno":52,"columnno":0,"path":"/home/nickpayne/workspace/personal/siha/lib","code":{"id":"astnode100000504","name":"exports.respond","type":"ArrowFunctionExpression","paramnames":["req","res","next","promise"]},"vars":{"":null},"shortpath":"express-utils.js"},"kind":"function","description":"<p>helper function to respond to requests with a promise</p>","params":[{"type":{"names":["express.Request"]},"description":"<p>the request</p>","name":"req"},{"type":{"names":["express.Response"]},"description":"<p>the response</p>","name":"res"},{"type":{"names":["function"]},"description":"<p>the express middleware next() callback</p>","name":"next"},{"type":{"names":["Promise"]},"description":"<p>the promise whose resolved value will be sent</p>","name":"promise"}],"name":"respond","longname":"module:express-utils.respond","memberof":"module:express-utils","scope":"static","___id":"T000002R000054","___s":true,"attribs":"<span class=\"type-signature\">(static) </span>","id":".respond","signature":"<span class=\"signature\">(req, res, next, promise)</span><span class=\"type-signature\"></span>","ancestors":["<a href=\"module-express-utils.html\">express-utils</a>."]}
+</pre>
+-->
+</div>
+
+        
+            <!--method.tmpl-->
+<div class="method-details">
+
+
+
+  <!--source-link.tmpl-->
+
+
+<div class="pull-right source-link-container">
+  <code class="source-link" data-tmpl="method-tmpl(1)">
+    <i class="fa fa-file-o"></i>
+    <a href="express-utils.js.html">express-utils.js</a>:<a href="express-utils.js.html#line34">34</a>
+  </code>
+</div>
+
+
+
+
+    
+
+    
+
+    <h4 class="name" id=".respondError">
+      <a href="#params-respondError"><span class="type-signature">(static) </span>respondError</a><span class="signature">(req, res, err)</span><span class="type-signature"></span>
+
+    </h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+    <p>helper function to send the client error replies</p>
+</div>
+
+
+
+
+
+
+
+
+<div class="collapse_" id="methodCollapse-respondError">
+
+  
+
+  
+
+<!-- details.tmpl -->
+
+
+
+
+
+
+
+
+<dl class="dl-horizontal">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+  <div id="params-respondError" class="bs-callout bs-callout-primary">
+    <h5>Parameters</h5>
+    <!--params.tmpl-->
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">express.Request</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the request</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">express.Response</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the response</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>err</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the error which was caught</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--
+<pre>
+{"comment":"/** @function\n * @description helper function to send the client error replies\n * @param req {express.Request} - the request\n * @param res {express.Response} - the response\n * @param err {Error} - the error which was caught\n */","meta":{"range":[1023,1279],"filename":"express-utils.js","lineno":34,"columnno":0,"path":"/home/nickpayne/workspace/personal/siha/lib","code":{"id":"astnode100000452","name":"exports.respondError","type":"ArrowFunctionExpression","paramnames":["req","res","err"]},"shortpath":"express-utils.js"},"kind":"function","description":"<p>helper function to send the client error replies</p>","params":[{"type":{"names":["express.Request"]},"description":"<p>the request</p>","name":"req"},{"type":{"names":["express.Response"]},"description":"<p>the response</p>","name":"res"},{"type":{"names":["Error"]},"description":"<p>the error which was caught</p>","name":"err"}],"name":"respondError","longname":"module:express-utils.respondError","memberof":"module:express-utils","scope":"static","___id":"T000002R000052","___s":true,"attribs":"<span class=\"type-signature\">(static) </span>","id":".respondError","signature":"<span class=\"signature\">(req, res, err)</span><span class=\"type-signature\"></span>","ancestors":["<a href=\"module-express-utils.html\">express-utils</a>."]}
+</pre>
+-->
+</div>
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Aug 18 2018 07:22:15 GMT-0400 (EDT) using the LOKE theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
