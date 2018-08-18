@@ -27,6 +27,7 @@
     "gulp-live-server": "0.0.31",
     "morgan": "^1.9.0",
     "sequelize": "^4.38.0",
+    "sequelize-querystring": "^0.8.1",
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {

@@ -31,15 +31,39 @@ const requestTests = {
 
   },
 
-  get: (model) => (requester, { simple }) => async () => {
+  get: [
 
-    await model.restify().post(simple);
-    const res = await requester.get(model.restify().paths.get())
-    res.should.have.status(200);
-    res.body.should.be.a('array');
-    assertRetrievedIsObj(res.body[0], simple);
+    // get all
+    (model) => (requester, { simple }) => async () => {
 
-  },
+      await model.restify().post(simple);
+      const res = await requester.get(model.restify().paths.get())
+      res.should.have.status(200);
+      res.body.should.be.a('object');
+      res.body.should.have.property('count');
+      res.body.should.have.property('rows');
+      res.body.rows.should.have.length(1);
+      assertRetrievedIsObj(res.body.rows[0], simple);
+
+    },
+
+    // get by ID
+    (model) => (requester, { simple }) => async () => {
+
+      const posted = await model.restify().post(simple);
+      const qs = `?filter=id eq ${posted.id}`;
+      const rq = `${model.restify().paths.get()}${qs}`;
+      const res = await requester.get(rq);
+      res.should.have.status(200);
+      res.body.should.be.a('object');
+      res.body.should.have.property('count');
+      res.body.should.have.property('rows');
+      res.body.rows.should.have.length(1);
+      assertRetrievedIsObj(res.body.rows[0], simple);
+
+    },
+
+  ],
 
   patch: (model) => (requester, { simple, patch }) => async () => {
 
@@ -49,7 +73,7 @@ const requestTests = {
     patchRes.body.should.be.a('object');
     assertRetrievedIsObj(patchRes.body, Object.assign(simple, patch));
     const getRes = await requester.get(model.restify().paths.get());
-    assertRetrievedIsObj(getRes.body[0], Object.assign(simple, patch));
+    assertRetrievedIsObj(getRes.body.rows[0], Object.assign(simple, patch));
 
   },
 
@@ -59,8 +83,10 @@ const requestTests = {
     const deleteRes = await requester.delete(savedInstance.restify().paths.delete());
     deleteRes.should.have.status(200); 
     const getRes = await requester.get(model.restify().paths.get())
-    getRes.body.should.be.a('array');
-    getRes.body.should.have.length(0);
+    getRes.body.should.be.a('object');
+    getRes.body.should.have.property('count', 0);
+    getRes.body.should.have.property('rows');
+    getRes.body.rows.should.have.length(0);
 
   }
 
@@ -135,9 +161,11 @@ const methodTests = {
   
       await model.restify().post(simple);
       let fromDB = await model.restify().get();
-      fromDB.should.be.a('array');
-      fromDB.should.have.length(1);
-      assertRetrievedIsObj(fromDB[0], simple);
+      fromDB.should.be.a('object');
+      fromDB.should.have.property('count');
+      fromDB.should.have.property('rows');
+      fromDB.rows.should.have.length(1);
+      assertRetrievedIsObj(fromDB.rows[0], simple);
 
     },
 
