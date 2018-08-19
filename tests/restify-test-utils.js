@@ -4,7 +4,6 @@
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { app, server } = require('../lib/app');
 const should = chai.should();
 
 chai.use(chaiHttp);
@@ -96,7 +95,7 @@ const requestTests = {
  * @description perform tests on the API, on supported methods, for a single model
  * @param model {restify(Sequelize.Model)} - the restified model to run request tests on
  */
-exports.restifyRequestTest = (model) => {
+exports.restifyRequestTest = (app, server) => (model) => {
 
   const modelName = model.name.replace(/\b\w/g, l => l.toUpperCase());
   const simpleTestData= testdata.simple[modelName];
@@ -115,7 +114,7 @@ exports.restifyRequestTest = (model) => {
     }
   }
 
-  describe(`restify::api::${modelName}`, () => {
+  return describe(`restify::api::${modelName}`, async () => {
 
     beforeEach(clearDB);
 
@@ -133,7 +132,6 @@ exports.restifyRequestTest = (model) => {
     }
 
   });
-
 
 };
 
@@ -252,7 +250,7 @@ exports.restifyMethodTest = (model) => {
     }
   }
 
-  describe(`restify::methods::${modelName}`, () => {
+  return describe(`restify::methods::${modelName}`, async () => {
 
     beforeEach(clearDB);
 

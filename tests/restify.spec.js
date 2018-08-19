@@ -1,9 +1,21 @@
 'use strict';
 
 const { restifyRequestTest, restifyMethodTest } = require('./restify-test-utils');
-const model = require('../lib/model');
+const models = Object.values(require('../lib/model'));
 
-for (var m of Object.values(model)) {
-  restifyMethodTest(m);
-  restifyRequestTest(m);
-}
+describe('restify-tests', () => {
+
+  it('do method tests', async () => {
+
+    await Promise.all(models.map(restifyMethodTest));
+
+  });
+
+  it('do request tests', async () => {
+  
+    const { app, server } = await require('../lib/app');
+    await Promise.all(models.map(restifyRequestTest(app, server)));
+
+  });
+
+});
