@@ -2,7 +2,7 @@
   "name": "siha",
   "version": "1.11.0",
   "description": "a simple habit-tracker exposing an API",
-  "main": "index.js",
+  "main": "siha.js",
   "scripts": {
     "test": "gulp test",
     "dev-serve": "gulp dev-serve",
