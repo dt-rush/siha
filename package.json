@@ -6,7 +6,7 @@
   "scripts": {
     "test": "gulp test",
     "dev-serve": "gulp dev-serve",
-    "cli": "gulp cli"
+    "cli": "node cli.js"
   },
   "repository": {
     "type": "git",
@@ -20,12 +20,16 @@
   "bugs": {
     "url": "https://github.com/dt-rush/simple-habit/issues"
   },
-  "homepage": "https://github.com/dt-rush/simple-habit#readme",
+  "homepage": "https://github.com/dt-rush/siha#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
     "express": "^4.16.3",
     "gulp-live-server": "0.0.31",
+    "json5": "^2.0.1",
     "morgan": "^1.9.0",
+    "promise.prototype.finally": "^3.1.0",
+    "repl": "^0.1.3",
     "sequelize": "^4.38.0",
     "sequelize-querystring": "^0.8.1",
     "sqlite3": "^4.0.2"

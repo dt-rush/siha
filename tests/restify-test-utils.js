@@ -188,7 +188,10 @@ const methodTests = {
 
     const created = await model.restify().post(simple);
     let fromDB = await model.findById(created.id);
-    const patched = await model.restify().patch(created.id, patch);
+    const patched = await model.restify().patch({
+      id: created.id, 
+      patch: patch
+    });
     assertRetrievedIsObj(patched, Object.assign(simple, patch));
     fromDB = await model.findById(created.id);
     assertRetrievedIsObj(fromDB, Object.assign(simple, patch));
@@ -202,7 +205,9 @@ const methodTests = {
       const a = await model.restify().post(simple);
       const b = await model.restify().post(simple);
       let fromDB = await model.findAll();
-      await model.restify().delete([fromDB[0].id]);
+      await model.restify().delete({
+        ids: [fromDB[0].id]
+      });
       fromDB = await model.findAll();
       fromDB.should.be.a('array');
       fromDB.should.have.length(1);
