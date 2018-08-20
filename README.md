@@ -20,11 +20,9 @@ subset of what I'd like. So I'll just write my own.
 
 ## TODO:
 
-1. make Dockerfile
-2. finish restify implementation for methods (get query langauge?)
-3. determine statistics that the user would find useful
-4. implement statistics
-5. build a front-end in a web-app (separate repo)
+1. determine statistics that the user would find useful
+2. implement statistics
+3. build a front-end in a web-app (separate repo)
 
 ## Future directions
 
