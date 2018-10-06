@@ -60,7 +60,7 @@ gulp.task('push', function (done) {
 });
 
 const releaseTasks = [
-  'versionist', 'jsdoc', 'git-add-all', 'commit-version', 'wait-one-second', 'push'
+  'versionist', 'jsdoc', 'git-add-all', 'commit-version', 'wait-one-second'
 ];
 
 gulp.task('release', gulp.series(...releaseTasks));
