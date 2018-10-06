@@ -29,14 +29,13 @@ gulp.task('commit-version', () => {
 
 gulp.task('tag-version', (done) => {
   const newReference = execSync('versionist get reference').toString().trim();
-  return gulp.src('.', { read: false })
-    .pipe(git.tag(newReference, '', (err) => { 
-      if (err) {
-        throw err;
-      } else {
-        done();
-      }
-    }));
+  git.tag(newReference, '', (err) => {
+    if (err) {
+      throw err;
+    } else {
+      done();
+    }
+  });
 });
 
 gulp.task('versionist-dry', (done) => {
