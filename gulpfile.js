@@ -21,11 +21,15 @@ gulp.task('git-add-all', () => {
     .pipe(git.add());
 });
 
-gulp.task('commit-version', (done) => {
+gulp.task('commit-version', () => {
   const newVersion = execSync('versionist get version').toString().trim();
+  return gulp.src('.', { read: false })
+    .pipe(git.commit(`${newVersion}`));
+});
+
+gulp.task('tag-version', (done) => {
   const newReference = execSync('versionist get reference').toString().trim();
-  gulp.src('.', { read: false })
-    .pipe(git.commit(`${newVersion}`))
+  return gulp.src('.', { read: false })
     .pipe(git.tag(newReference, '', (err) => { 
       if (err) {
         throw err;
@@ -60,7 +64,8 @@ gulp.task('push', function (done) {
 });
 
 const releaseTasks = [
-  'versionist', 'jsdoc', 'git-add-all', 'commit-version', 'wait-one-second'
+  'versionist', 'jsdoc', 'git-add-all', 
+  'commit-version', 'wait-one-second', 'tag-version'
 ];
 
 gulp.task('release', gulp.series(...releaseTasks));
