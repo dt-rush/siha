@@ -1,6 +1,6 @@
 {
   "name": "siha",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "description": "a simple habit-tracker exposing an API",
   "main": "siha.js",
   "scripts": {
